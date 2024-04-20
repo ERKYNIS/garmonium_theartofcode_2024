@@ -1,3 +1,31 @@
 html, body {
     font-family: "Noto Sans"
 }
+
+.garm-form > *, .garm-form > * > * {
+    margin: 0 auto;
+}
+
+.garm-form > * > label {
+    display: block;
+    font-size: 16px;
+    color: #afafaf;
+    padding: 1px 1px 1px 1px;
+}
+
+.garm-form > * > input {
+    display:block;
+    border-radius: 7px;
+    font-size: 18px;
+    margin-bottom: 2%;
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+}
+
+button {
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+    border: solid 1px black;
+    background-color: transparent;
+    font-size: 16px;
+}
