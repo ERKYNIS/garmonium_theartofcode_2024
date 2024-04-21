@@ -2,35 +2,36 @@
 
 {% block content %}
     <div style="margin: 0 auto; text-align: center">
-        <form class="garm-form">
+        <form class="garm-form" method="post" action="/register">
             <div>
                 <label for="email">Адрес электронной почты</label>
-                <input id="email" placeholder="Электронная почта" required>
+                <input id="email" name="email" placeholder="Электронная почта" required>
             </div>
 
             <div>
                 <label for="password">Желаемый пароль</label>
-                <input id="password" placeholder="Пароль" required>
+                <input id="password" name="password" type="password" placeholder="Пароль" required>
             </div>
 
             <div>
                 <label for="password2">Повтор пароля</label>
-                <input id="password2" placeholder="Пароль ещё раз" required>
+                <input id="password2" name="password2" type="password" placeholder="Пароль ещё раз" required>
             </div>
 
             <div>
                 <label for="first_name">Ваше имя</label>
-                <input id="first_name" placeholder="Имя" required>
+                <input id="first_name" name="first_name" placeholder="Имя" required>
             </div>
 
             <div>
                 <label for="last_name">Ваша фамилия</label>
-                <input id="last_name" placeholder="Фамилия" required>
+                <input id="last_name" name="last_name" placeholder="Фамилия" required>
             </div>
 
-            <p style="color:red;display:none" id="error"></p>
+            {% if error %}<p style="color:red">{{ error|safe }}</p><br>{% endif %}
 
-            <button type="submit">Зарегистрироваться</button>
+            <button style="margin-top:10px" type="submit">Зарегистрироваться</button>
+            <br><a href="/login">У меня уже есть аккаунт</a>
         </form>
     </div>
 

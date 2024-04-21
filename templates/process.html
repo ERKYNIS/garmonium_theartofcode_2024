@@ -1,0 +1,8 @@
+{% extends "pagetemplate.html" %}
+
+{% block content %}
+{% if redirect %}
+<meta http-equiv="refresh" content="4; url={{ redirect }}" />
+{% endif %}
+    <h1>Процесс</h1>
+{% endblock %}

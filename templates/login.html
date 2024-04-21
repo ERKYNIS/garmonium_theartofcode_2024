@@ -1,0 +1,26 @@
+{% extends "pagetemplate.html" %}
+
+{% block content %}
+    <div style="margin: 0 auto; text-align: center">
+        <form class="garm-form" method="post" action="/login">
+            <div>
+                <label for="email">Адрес электронной почты</label>
+                <input id="email" name="email" placeholder="Электронная почта" required>
+            </div>
+
+            <div>
+                <label for="password">Пароль</label>
+                <input id="password" name="password" type="password" placeholder="Пароль" required>
+            </div>
+
+            {% if error %}<p style="color:red">{{ error|safe }}</p><br>{% endif %}
+
+            <button style="margin-top:10px" type="submit">Авторизоваться</button>
+            <br><a href="/register">У меня ещё нет аккаунта</a>
+        </form>
+    </div>
+
+<script>
+
+</script>
+{% endblock %}

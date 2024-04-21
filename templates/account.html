@@ -1,0 +1,29 @@
+{% extends "pagetemplate.html" %}
+
+{% block content %}
+    <h1>Аккаунт</h1>
+    {% if notification %}
+        <p style="color:{{ notification_type }}">{{ notification }}</p>
+    {% endif %}
+    {% if acc_type == 0 %}
+        <form action="/account" method="post">
+            <input type="hidden" name="action" value="setrole">
+            <select name="role">
+                <option value="client">Клиент</option>
+                <option value="expert">Эксперт</option>
+            </select>
+            <button type="submit">Подтвердить выбор</button>
+        </form>
+    {% else %}
+        <p>{{ acc_id }}</p>
+        <p>{{ acc_email }}</p>
+        <p>{{ ecc_password }}</p>
+        {% if acc_type == 1 %}
+            <p>Ваша роль: Клиент</p>
+        {% elif acc_type == 2 %}
+            <p>Ваша роль: Эксперт</p>
+        {% endif %}
+    {% endif %}
+
+    <br><a href="/logout">Выйти из аккаунта</a>
+{% endblock %}
