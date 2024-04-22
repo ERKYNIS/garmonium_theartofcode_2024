@@ -1,26 +1,37 @@
 {% extends "pagetemplate.html" %}
-
 {% block content %}
-    <div style="margin: 0 auto; text-align: center">
-        <form class="garm-form" method="post" action="/login">
-            <div>
-                <label for="email">Адрес электронной почты</label>
-                <input id="email" name="email" placeholder="Электронная почта" required>
+    <!-- Start Register -->
+    <section class="ec-page-content section-space-p">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="section-title">
+                        <h2 class="ec-bg-title">Авторизация</h2>
+                        <h2 class="ec-title">Авторизация</h2>
+                    </div>
+                </div>
+                <div class="ec-register-wrapper">
+                    <div class="ec-register-container">
+                        <div class="ec-register-form">
+                            <form action="/login" method="post">
+				<span class="ec-register-wrap ec-register-half">
+					<label>Email*</label>
+					<input type="text" name="email" placeholder="ivan.ivanov@yandex.ru" required />
+				</span>
+				<span class="ec-register-wrap ec-register-half">
+					<label>Пароль*</label>
+					<input type="password" name="password" placeholder="******" required />
+				</span>
+                                <p style="color: #E32636; text-align:center; margin: 0 auto">{{ error|safe }}</p>
+                                                                <span class="ec-register-wrap ec-register-btn">
+                                    <button class="btn btn-primary" type="submit">Авторизоваться</button>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <label for="password">Пароль</label>
-                <input id="password" name="password" type="password" placeholder="Пароль" required>
-            </div>
-
-            {% if error %}<p style="color:red">{{ error|safe }}</p><br>{% endif %}
-
-            <button style="margin-top:10px" type="submit">Авторизоваться</button>
-            <br><a href="/register">У меня ещё нет аккаунта</a>
-        </form>
-    </div>
-
-<script>
-
-</script>
+        </div>
+    </section>
+    <!-- End Register -->
 {% endblock %}

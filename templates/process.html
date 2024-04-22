@@ -1,8 +1,19 @@
 {% extends "pagetemplate.html" %}
-
 {% block content %}
-{% if redirect %}
-<meta http-equiv="refresh" content="4; url={{ redirect }}" />
-{% endif %}
-    <h1>Процесс</h1>
+    {% if redirect %}
+    <meta http-equiv="refresh" content="4; url={{ redirect }}" />
+    {% endif %}
+	<section class="ec-404-error-page-02">
+		<div class="container">
+		  <div class="row">
+			<div class="col-sm-12 text-center">
+				<img class="img-404" src="static/img/loading.gif" width="100px" alt="" />
+
+				<h1 class="main-title text-center">Пожалуйста, подождите...</h1>
+				<p class="desc-content text-center">Нам нужно произвести некоторые действия, чтобы отобразить страницу.</p>
+			</div>
+		  </div>
+		</div>
+	</section>
+
 {% endblock %}

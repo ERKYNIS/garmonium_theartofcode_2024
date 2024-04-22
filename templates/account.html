@@ -5,25 +5,16 @@
     {% if notification %}
         <p style="color:{{ notification_type }}">{{ notification }}</p>
     {% endif %}
-    {% if acc_type == 0 %}
         <form action="/account" method="post">
-            <input type="hidden" name="action" value="setrole">
+            <input name="first_name" value="{{ first_name }}">
+            <input name="last_name" value="{{ last_name }}">
+            <input name="email" value="{{ acc_email }}" disabled>
             <select name="role">
-                <option value="client">Клиент</option>
-                <option value="expert">Эксперт</option>
+                <option value="1" {% if acc_type == 1 %} selected {% endif %}>Клиент</option>
+                <option value="2" {% if acc_type == 2 %} selected {% endif %}>Эксперт</option>
             </select>
-            <button type="submit">Подтвердить выбор</button>
+            <button type="submit">Обновить информацию</button>
         </form>
-    {% else %}
-        <p>{{ acc_id }}</p>
-        <p>{{ acc_email }}</p>
-        <p>{{ ecc_password }}</p>
-        {% if acc_type == 1 %}
-            <p>Ваша роль: Клиент</p>
-        {% elif acc_type == 2 %}
-            <p>Ваша роль: Эксперт</p>
-        {% endif %}
-    {% endif %}
 
     <br><a href="/logout">Выйти из аккаунта</a>
 {% endblock %}

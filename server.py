@@ -17,7 +17,7 @@ cur.execute(
 cur.execute("""CREATE TABLE IF NOT EXISTS experts (expert_id INTEGER, users_id TEXT, desc TEXT);""")
 cur.execute(
     """CREATE TABLE IF NOT EXISTS services (id INTEGER PRIMARY KEY AUTOINCREMENT, expert_id INTEGER, 
-    title TEXT, desc TEXT, cost INTEGER);""")
+    title TEXT, desc TEXT, cost INTEGER, rating INTEGER);""")
 cur.execute(
     """CREATE TABLE IF NOT EXISTS buys (id INTEGER PRIMARY KEY AUTOINCREMENT, service_id INTEGER, 
     user_id INTEGER, DATETIME TEXT, comment TEXT);""")
@@ -89,7 +89,14 @@ def check_password(password):
 
 @app.route('/')
 def main():
-    return render_page('main.html', title="Добро пожаловать!")
+    """sql = "SELECT * FROM `accounts` WHERE `role`=2"
+    if request.args.get("orderby"):
+        sql += f"ORDER BY `{request.args.get('orderby')}`"
+    else:
+        sql += "ORDER BY `raiting` DESC"
+    experts = databaserequest(sql)"""
+    experts = []
+    return render_page('main.html', title="Добро пожаловать!", experts=experts)
 
 
 @app.route('/register', methods=["GET", "POST"])
@@ -106,11 +113,12 @@ def register():
                 md5password = request.form.get("password")
                 md5password = md5password.encode(encoding='UTF-8', errors='strict')
                 md5password = str(hashlib.md5(md5password).hexdigest())
-                databaserequest("INSERT INTO accounts(`email`, `password`, `first_name`, `last_name`) "
-                                "VALUES (?, ?, ?, ?)",
+                databaserequest("INSERT INTO accounts(`email`, `password`, `first_name`, `last_name`, `acctype`) "
+                                "VALUES (?, ?, ?, ?, ?)",
                                 params=[request.form.get("email"),
                                         md5password,
-                                        request.form.get("first_name"), request.form.get("last_name")], commit=True)
+                                        request.form.get("first_name"), request.form.get("last_name"),
+                                        request.form.get("role")], commit=True)
                 resp = app.make_response(render_template("process.html", title="Авторизация...",
                                                          redirect="/account"))
                 resp.set_cookie('id', f'{cur.lastrowid}', max_age=2592000)
@@ -151,27 +159,22 @@ def login():
 
 @app.route('/account', methods=['GET', 'POST'])
 def account():
-    acc_info = databaserequest("SELECT * FROM accounts WHERE `id`=?", params=request.cookies.get("id"))[0]
+    if not isloggin():
+        return redirect('/login')
     if request.method == "POST":
-        if request.form.get("action") == "setrole":
-            if request.form.get("role") == "expert":
-                databaserequest("UPDATE accounts SET `acctype`=2 WHERE `id`=?",
-                                params=[request.cookies.get("id")], commit=True)
-                role = "Эксперт"
-                role_num = 2
-            else:
-                databaserequest("UPDATE accounts SET `acctype`=1 WHERE `id`=?",
-                                params=[request.cookies.get("id")], commit=True)
-                role = "Клиент"
-                role_num = 1
-            return render_page("account.html", title="Аккаунт", loggin=True, acc_id=request.cookies.get("id"),
-                           acc_email=request.cookies.get("email"), acc_password=request.cookies.get("password"),
-                               notification=f"Ваша роль установлена на {role}!", notification_type="green",
-                               acc_type=role_num)
-    else:
+        databaserequest("UPDATE accounts SET `acctype`=?, `first_name`=?, `last_name`=? WHERE `id`=?",
+                        params=[request.form.get("role"), request.form.get("first_name"),
+                                request.form.get("last_name"), request.cookies.get("id")], commit=True)
         return render_page("account.html", title="Аккаунт", loggin=True, acc_id=request.cookies.get("id"),
                            acc_email=request.cookies.get("email"), acc_password=request.cookies.get("password"),
-                           acc_type=acc_info[5])
+                           notification=f"Информация о Вашем аккаунте обновлена!", notification_type="green",
+                           acc_type=request.form.get("role"), first_name=request.form.get("first_name"),
+                           last_name=request.form.get("last_name"))
+    else:
+        acc_info = databaserequest("SELECT * FROM accounts WHERE `id`=?", params=request.cookies.get("id"))[0]
+        return render_page("account.html", title="Аккаунт", loggin=True, acc_id=request.cookies.get("id"),
+                           acc_email=request.cookies.get("email"), acc_password=request.cookies.get("password"),
+                           acc_type=acc_info[5], first_name=acc_info[3], last_name=acc_info[4])
 
 
 @app.route("/logout")
