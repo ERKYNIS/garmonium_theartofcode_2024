@@ -1,20 +1,61 @@
 {% extends "pagetemplate.html" %}
 
 {% block content %}
-    <h1>Аккаунт</h1>
-    {% if notification %}
-        <p style="color:{{ notification_type }}">{{ notification }}</p>
-    {% endif %}
-        <form action="/account" method="post">
-            <input name="first_name" value="{{ first_name }}">
-            <input name="last_name" value="{{ last_name }}">
-            <input name="email" value="{{ acc_email }}" disabled>
-            <select name="role">
-                <option value="1" {% if acc_type == 1 %} selected {% endif %}>Клиент</option>
-                <option value="2" {% if acc_type == 2 %} selected {% endif %}>Эксперт</option>
-            </select>
-            <button type="submit">Обновить информацию</button>
-        </form>
+    <div class="container">
+		{% if notification %}
+			<div class="alert alert-{{ notification_type }}" role="alert">
+			  {{ notification|safe }}
+			</div>
+		{% endif %}
+				<center>
+					<h2>Настройка вашего аккаунта</h2>
+					<h4>{{ first_name }} {{ last_name }}</h4>
+				</center>
+				<form action="/account" method="post">
+					{% if acc_type == 2 %}
+					<br>
+					<h5 style="text-align: center">Настройки эксперта</h5>
+					<div class="row">
+						<div class="col">
+							<label class="p-2">Ваше направление:</label>
+							<select class="form-control" name="psy_type">
+								<option value="1" {% if psy_type == 1 %} selected {% endif %}>Семейный психолог</option>
+								<option value="2" {% if psy_type == 2 %} selected {% endif %}>Подростковый психолог</option>
+								<option value="3" {% if psy_type == 3 %} selected {% endif %}>Психиатр</option>
+								<option value="4" {% if psy_type == 4 %} selected {% endif %}>Детский психолог</option>
+								<option value="5" {% if psy_type == 5 %} selected {% endif %}>Психотерапевт</option>
+							</select>
+						</div>
+						<div class="col">
+							<label class="p-2">Цена (руб.)</label>
+							<input type="number" class="form-control" name="price" value="{{ psy_price }}" required>
+						</div>
+					</div>
+<div class="row"><div class="col"><label class="p-2">Описание</label><br><textarea name="expert_desc" class="form-control" rows="5" cols="7">{{ psy_desc }}</textarea></div></div>
+					<hr>
+					{% endif %}
 
-    <br><a href="/logout">Выйти из аккаунта</a>
+					<div class="row">
+						<div class="col">
+							<label class="p-2">Email</label>
+							<input type="email" class="form-control" name="email" value="{{ acc_email }}" disabled>
+						</div><div class="col"></div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<label class="p-2">Текущий пароль</label>
+							<input type="password" class="form-control" name="old_password">
+						</div>
+						<div class="col">
+							<label class="p-2">Новый пароль</label>
+							<input type="password" class="form-control" name="new_password">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<button type="submit" class="form-control btn btn-primary mt-2">Сохранить</button>
+						</div>
+					</div>
+				</form>
+			</div>
 {% endblock %}

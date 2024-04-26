@@ -1,37 +1,22 @@
 {% extends "pagetemplate.html" %}
+
 {% block content %}
-    <!-- Start Register -->
-    <section class="ec-page-content section-space-p">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="section-title">
-                        <h2 class="ec-bg-title">Авторизация</h2>
-                        <h2 class="ec-title">Авторизация</h2>
-                    </div>
-                </div>
-                <div class="ec-register-wrapper">
-                    <div class="ec-register-container">
-                        <div class="ec-register-form">
-                            <form action="/login" method="post">
-				<span class="ec-register-wrap ec-register-half">
-					<label>Email*</label>
-					<input type="text" name="email" placeholder="ivan.ivanov@yandex.ru" required />
-				</span>
-				<span class="ec-register-wrap ec-register-half">
-					<label>Пароль*</label>
-					<input type="password" name="password" placeholder="******" required />
-				</span>
-                                <p style="color: #E32636; text-align:center; margin: 0 auto">{{ error|safe }}</p>
-                                                                <span class="ec-register-wrap ec-register-btn">
-                                    <button class="btn btn-primary" type="submit">Авторизоваться</button>
-                                </span>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Register -->
+<div class="container" id="login">
+    <div class="m-3">
+        <h2 style="text-align: center">Вход</h2>
+        {% if error %}
+			<div class="alert alert-danger" role="alert">
+			  {{ error|safe }}
+			</div>
+        {% endif %}
+        <form action="#" method="post">
+            <label class="p-2">Email *</label>
+            <input type="email" name="email" class="form-control mb-3" placeholder="ivan.ivanov@yandex.ru" required>
+            <label class="p-2">Пароль *</label>
+            <input type="password" name="password" class="form-control mb-3" placeholder="Пароль" required>
+            <button type="submit" class="form-control btn btn-primary">Войти</button>
+            <div style="margin: 0 auto; text-align: center"><a href="/register">У меня ещё нет аккаунта</a></div><br>
+        </form>
+    </div>
+</div>
 {% endblock %}

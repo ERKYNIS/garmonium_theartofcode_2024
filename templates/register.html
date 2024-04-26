@@ -1,58 +1,41 @@
 {% extends "pagetemplate.html" %}
 {% block content %}
-    <!-- Start Register -->
-    <section class="ec-page-content section-space-p">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="section-title">
-                        <h2 class="ec-bg-title">Регистрация</h2>
-                        <h2 class="ec-title">Регистрация</h2>
-                    </div>
-                </div>
-                <div class="ec-register-wrapper">
-                    <div class="ec-register-container">
-                        <div class="ec-register-form">
-                            <form action="/register" method="post">
-                                <span class="ec-register-wrap ec-register-half">
-                                    <label>Имя*</label>
-                                    <input type="text" name="first_name" placeholder="Иван" required />
-                                </span>
-				<span class="ec-register-wrap ec-register-half">
-					<label>Email*</label>
-					<input type="text" name="email" placeholder="ivan.ivanov@yandex.ru" required />
-				</span>
-                                <span class="ec-register-wrap ec-register-half">
-                                    <label>Фамилия*</label>
-                                    <input type="text" name="last_name" placeholder="Иванов" required />
-                                </span>
-				<span class="ec-register-wrap ec-register-half">
-					<label>Пароль*</label>
-					<input type="password" name="password" placeholder="******" required />
-				</span>
-				<span class="ec-register-wrap ec-register-half">
-					<label>Роль*</label>
-					<span class="ec-rg-select-inner">
-					<select name="role" class="ec-register-select" placeholder="Выберите вашу роль" required>
-						<option value="1">Клиент</option>
-						<option value="2">Эксперт</option>
-					</select>
-					</span>
-				</span>
-				<span class="ec-register-wrap ec-register-half">
-					<label>Повторите пароль</label>
-					<input type="password" name="password2" placeholder="******" required />
-				</span>
-                                <p style="color: #E32636; text-align:center; margin: 0 auto">{{ error|safe }}</p>
-                                                                <span class="ec-register-wrap ec-register-btn">
-                                    <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
-                                </span>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Register -->
+    <div class="container">
+					<div class="m-3">
+						<form action="#" method="post">
+							<center><h2>Регистрация</h2></center>
+							<div class="row">
+								<div class="col">
+								<label class="p-2">Имя *</label>
+								<input class="form-control" type="text" name="first_name" placeholder="Иван" required>
+								</div><div class="col">
+								<label class="p-2">Email *</label>
+								<input type="email" class="form-control" name="email" placeholder="ivan.ivanov@yandex.ru" required>
+								</div>
+							</div><div class="row">
+								<div class="col">
+								<label class="p-2">Фамилия *</label>
+								<input type="text" class="form-control" name="last_name" placeholder="Иванов" required>
+								</div><div class="col">
+								<label class="p-2">Пароль *</label>
+								<input type="password" class="form-control" name="password" placeholder="Пароль" required>
+								</div>
+							</div><div class="row">
+								<div class="col">
+								<label class="p-2">Кто вы? *</label>
+								<select name="role" class="form-control" required>
+								<option value="1">Клиент</option>
+								<option value="2">Эксперт</option>
+								</select>
+								</div><div class="col">
+								<label class="p-2">Повторите пароль *</label>
+								<input type="password" class="form-control" name="password2" placeholder="Пароль" required>
+								</div>
+							</div><div class="row">
+								<div class="col"></div><div class="col"><button type="submit" class="form-control btn btn-primary m-2" required>Зарегистрироваться</button></div><div class="col"></div>
+							</div>
+                            <center>{{ error|safe }}</center>
+						</form>
+					</div>
+			</div>
 {% endblock %}

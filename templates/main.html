@@ -1,5 +1,52 @@
 {% extends "pagetemplate.html" %}
 
 {% block content %}
-    <h1>Скоро тут что-нибудь будет :)</h1>
+    <div class="container">
+				<center>
+					<h2>Поиск психологов, которые вам помогут</h2>
+					<form action="/" method="get">
+					<div class="input-group">
+						<span class="input-group-text">Психологи: </span>
+						<select name="psy_category" class="form-control">
+							<option value="0" {% if expert_type == 0 %} selected {% endif %}>Любые</option>
+							<option value="1" {% if expert_type == 1 %} selected {% endif %}>Семейный психолог</option>
+							<option value="2" {% if expert_type == 2 %} selected {% endif %}>Подростковый психолог</option>
+							<option value="3" {% if expert_type == 3 %} selected {% endif %}>Психиатр</option>
+							<option value="4" {% if expert_type == 4 %} selected {% endif %}>Детский психолог</option>
+							<option value="5" {% if expert_type == 5 %} selected {% endif %}>Психотерапевт</option>
+						</select>
+						<span class="input-group-text" id="addon-wrapping">Цена от</span>
+						<input type="text" name="minprice" class="form-control" value="{% if minprice != -1 %} {{ minprice }} {% endif %}">
+						<span class="input-group-text" id="addin-wrapping">Цена до</span>
+						<input type="text" name="maxprice" class="form-control" value="{% if maxprice != -1 %} {{ maxprice }} {% endif %}">
+						<button type="submit" class="btn btn-outline-primary form-control">Найти</button>
+					</div>
+					</form>
+				</center>
+
+		<hr>
+		{% if notification %}
+			<div class="alert alert-success" role="alert">
+			  {{ notification|safe }}
+			</div>
+		{% endif %}
+
+		{% for expert in experts %}
+			<div class="container shadow" style="padding: 10px 10px 10px 10px; border-radius: 5px; margin-bottom: 15px"><h3>{{ expert[3] }} {{ expert[4] }}<br><h6>{{ expert_types[expert[6]] }}</h6></h3><br>
+				<p>{{ expert[9] }}</p>
+				<div class="row">
+					<div class="col">Стоимость услуги: {{ expert[8] }} руб.</div>
+					<div class="col">
+						<form action="/" method="post">
+							{% if not logged %}
+								<input class="form-control" style="margin-bottom: 5px" type="text" name="first_name" placeholder="Ваше имя" required>
+								<input class="form-control" style="margin-bottom: 5px" type="text" name="last_name" placeholder="Ваша фамилия" required>
+							{% endif %}
+							<input type="hidden" name="expert" value="{{ expert[0] }}">
+							<button class="btn btn-outline-success" type="submit">Записаться на консультацию</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
 {% endblock %}
