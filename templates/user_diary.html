@@ -14,7 +14,7 @@
         <br><hr><br>
         <div class="row"><div class="col">Дата добавления</div><div class="col-6">Описание</div><div class="col">Статус</div></div><hr>
         {% for d in diary %}
-        <div class="row"><div class="col">{{ d[3] }}</div><div class="col-6">{{ d[4] }}</div><div class="col">{% if d[5] == "1"  %}Выполнено {% else %} Не выполнено {% endif %}</div></div><hr>
+        <div class="row"><div class="col">{{ d[3] }}</div><div class="col-6">{{ d[4] }}</div><div class="col">{% if d[5] == 1  %}Выполнено {% else %} Не выполнено {% endif %}</div></div><hr>
         {% endfor %}
     </div>
 </div>
